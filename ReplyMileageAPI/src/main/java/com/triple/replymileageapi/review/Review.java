@@ -1,4 +1,4 @@
-package com.triple.replymileageapi.reply;
+package com.triple.replymileageapi.review;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -6,11 +6,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,18 +19,22 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString // for test
-public class Reply {
+public class Review {
     @Id
-    @Column(name="reply_id", columnDefinition = "BINARY(16)")
-    private UUID replyId;
+    private String reviewId;
 
-    @Column(name="place_id", columnDefinition = "BINARY(16)")
-    private UUID placeId;
+    private String placeId;
 
-    @Column( nullable = false, columnDefinition = "NVARCHAR(4000)")
+    private String userId;
+
+    @Column(nullable = false, columnDefinition = "NVARCHAR(4000)")
     private String content;
 
-    @Column(name="reply_useflag", columnDefinition = "CHAR(1)")
+    /*@OneToMany(mappedBy = "review", fetch = FetchType.LAZY)
+    private List<AttachedPhoto> attachedPhotoIds;*/
+    private String attachedPhotoIds;
+
+    @Column(columnDefinition = "CHAR(1)")
     @ColumnDefault("'Y'")
     private String useFlag;
 

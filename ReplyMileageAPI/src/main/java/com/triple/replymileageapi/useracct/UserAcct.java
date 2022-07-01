@@ -1,5 +1,6 @@
 package com.triple.replymileageapi.useracct;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,17 +25,17 @@ import java.util.UUID;
 public class UserAcct {
 
     @Id
-    @Column(name="user_id", columnDefinition = "BINARY(16)")
-    private UUID userId;
+    private String userId;
 
-    @Column(name="user_mileage")
     @ColumnDefault("0")
     private Integer mileage;
 
+    @JsonIgnore
     @CreationTimestamp
     @Column(nullable = false, length = 20, updatable = false)
     private LocalDateTime created;
 
+    @JsonIgnore
     @UpdateTimestamp
     @Column(length = 20)
     private LocalDateTime updated;

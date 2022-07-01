@@ -1,19 +1,18 @@
-package com.triple.replymileageapi.reply;
+package com.triple.replymileageapi.review;
 
-import com.triple.replymileageapi.useracct.UserAcctRepo;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
-public class ReplyTest {
+public class ReviewTest {
     @Autowired
-    private ReplyRepo replyRepo;
+    private ReviewRepo reviewRepo;
 
     @Test
     public void checkReplyRepoNotNull() {
-        Assertions.assertThat(replyRepo).isNotNull();
+        Assertions.assertThat(reviewRepo).isNotNull();
     }
 
 }
