@@ -1,5 +1,6 @@
-package com.triple.replymileageapi.review;
+package com.triple.replymileageapi.mileagehist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,13 +9,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(indexes = {
-        @Index(name="i_reviewuserid", columnList = "reviewId,userId")
-        ,@Index(name="i_placeid", columnList = "placeId")
+        @Index(name="i_userplacereview", columnList = "userId,placeId,reviewId")
 })
 @Getter
 @Builder
@@ -22,29 +20,33 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString // for test
-public class Review {
-    @Id
-    private String reviewId;
+public class MileageHist {
 
-    private String placeId;
+    @Id
+    @GeneratedValue
+    private Long   id;
 
     private String userId;
 
-    @Column(nullable = false, columnDefinition = "NVARCHAR(4000)")
-    private String content;
+    private String placeId;
 
-    private String attachedPhotoIds;
+    private String reviewId;
 
+    private Integer mileage;
+
+    @JsonIgnore
     @Setter
     @Column(columnDefinition = "CHAR(1)")
     @ColumnDefault("'Y'")
     private String useFlag;
 
+    @JsonIgnore
+    @Column(columnDefinition = "CHAR(1)")
+    @ColumnDefault("'N'")
+    private String bonusFlag;
+
+    @JsonIgnore
     @CreationTimestamp
     @Column(nullable = false, length = 20, updatable = false)
     private LocalDateTime created;
-
-    @UpdateTimestamp
-    @Column(length = 20)
-    private LocalDateTime updated;
 }

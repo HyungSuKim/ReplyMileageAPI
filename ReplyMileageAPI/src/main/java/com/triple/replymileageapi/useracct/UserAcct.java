@@ -27,6 +27,7 @@ public class UserAcct {
     @Id
     private String userId;
 
+    @Setter
     @ColumnDefault("0")
     private Integer mileage;
 

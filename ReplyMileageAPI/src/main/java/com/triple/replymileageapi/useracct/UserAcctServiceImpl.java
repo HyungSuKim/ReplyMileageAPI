@@ -1,10 +1,13 @@
 package com.triple.replymileageapi.useracct;
 
+import com.triple.replymileageapi.RequestReviewModel;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Log
 @Service
 public class UserAcctServiceImpl implements UserAcctService{
 
@@ -15,16 +18,36 @@ public class UserAcctServiceImpl implements UserAcctService{
     }
 
     @Override
-    public UserAcct makeUserAcct(UserAcct userAcct) {
+    public UserAcct makeUserAcct(RequestReviewModel model) {
 
-        List<UserAcct> searchResult = userAcctRepo.findByUserId(userAcct.getUserId());
+        List<UserAcct> searchResult = userAcctRepo.findByUserId(model.getUserId());
 
         if(!searchResult.isEmpty()) {
+            log.info(searchResult.get(0).toString());
+
             return searchResult.get(0);
         }
 
-        UserAcct result = userAcctRepo.save(userAcct);
+        UserAcct userAcct = UserAcct.builder()
+                .userId(model.getUserId())
+                .mileage(0)
+                .build();
 
-        return result;
+        userAcctRepo.save(userAcct);
+
+        log.info(userAcctRepo.findByUserId(model.getUserId()).get(0).toString());
+
+        return userAcctRepo.findByUserId(model.getUserId()).get(0);
+    }
+
+    @Override
+    public UserAcct updateUserAcct(RequestReviewModel model, Integer milage) {
+        UserAcct userAcct = userAcctRepo.findByUserId(model.getUserId()).get(0);
+
+        userAcct.setMileage(userAcct.getMileage() + milage);
+
+        userAcctRepo.save(userAcct);
+
+        return userAcctRepo.findByUserId(model.getUserId()).get(0);
     }
 }
