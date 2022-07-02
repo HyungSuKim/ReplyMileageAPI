@@ -14,6 +14,16 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public boolean isUniqueReviewId(RequestReviewModel model) {
+
+        if(reviewRepo.findByReviewId(model.getReviewId()).size() == 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
     public boolean isUserUniqueReviewPlace(RequestReviewModel model) {
 
         if(reviewRepo.findAllByUserIdAndPlaceIdAndUseFlag(model.getUserId(), model.getPlaceId(), "Y").size() == 0) {

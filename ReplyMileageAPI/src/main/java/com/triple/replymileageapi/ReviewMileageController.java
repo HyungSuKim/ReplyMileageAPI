@@ -44,17 +44,28 @@ public class ReviewMileageController {
                 return new ResponseEntity<>(ResponseReviewModel.builder()
                         .userId(model.getUserId())
                         .placeId(model.getPlaceId())
+                        .reviewId(model.getReviewId())
                         .errorDtl("Not Defined Action.").build(),HttpStatus.BAD_REQUEST);
         }
     }
 
     @Transactional
     public ResponseEntity<Object> insert(RequestReviewModel model) {
+        //리뷰 아이디 중복 유효성 검사
+        if(!reviewService.isUniqueReviewId(model)) {
+            return new ResponseEntity<>(ResponseReviewModel.builder()
+                    .userId(model.getUserId())
+                    .placeId(model.getPlaceId())
+                    .reviewId(model.getReviewId())
+                    .errorDtl("Duplicate reviewId").build(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         //장소 별 리뷰 1개 유효성 검사
         if(!reviewService.isUserUniqueReviewPlace(model)) {
             return new ResponseEntity<>(ResponseReviewModel.builder()
                     .userId(model.getUserId())
                     .placeId(model.getPlaceId())
+                    .reviewId(model.getReviewId())
                     .errorDtl("Already Review for place").build(), HttpStatus.METHOD_NOT_ALLOWED);
         }
 
@@ -81,6 +92,7 @@ public class ReviewMileageController {
                 .body(ResponseReviewModel.builder()
                         .userId(model.getUserId())
                         .placeId(model.getPlaceId())
+                        .reviewId(model.getReviewId())
                         .errorDtl("Success").build());
     }
 
@@ -92,6 +104,7 @@ public class ReviewMileageController {
             return new ResponseEntity<>(ResponseReviewModel.builder()
                     .userId(model.getUserId())
                     .placeId(model.getPlaceId())
+                    .reviewId(model.getReviewId())
                     .errorDtl("There are no review to update").build(), HttpStatus.NOT_FOUND);
         }
 
@@ -114,6 +127,7 @@ public class ReviewMileageController {
                 .body(ResponseReviewModel.builder()
                         .userId(model.getUserId())
                         .placeId(model.getPlaceId())
+                        .reviewId(model.getReviewId())
                         .errorDtl("Success").build());
     }
 
@@ -125,6 +139,7 @@ public class ReviewMileageController {
             return new ResponseEntity<>(ResponseReviewModel.builder()
                     .userId(model.getUserId())
                     .placeId(model.getPlaceId())
+                    .reviewId(model.getReviewId())
                     .errorDtl("There are no review to delete").build(), HttpStatus.NOT_FOUND);
         }
 
@@ -134,6 +149,9 @@ public class ReviewMileageController {
         Integer mileage = 0;
         mileage = mileage - preMileageHist.getMileage();
 
+        //삭제 히스토리 기록
+        mileageHistService.insertMileageHist(preMileageHist, mileage);
+
         //사용자 계좌 마일리지 적용
         UserAcct userAcct = userAcctService.updateUserAcct(model, mileage);
 
@@ -141,6 +159,7 @@ public class ReviewMileageController {
                 .body(ResponseReviewModel.builder()
                         .userId(model.getUserId())
                         .placeId(model.getPlaceId())
+                        .reviewId(model.getReviewId())
                         .errorDtl("Success").build());
     }
 }

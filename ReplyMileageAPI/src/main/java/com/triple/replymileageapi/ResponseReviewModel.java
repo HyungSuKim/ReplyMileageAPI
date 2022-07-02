@@ -8,5 +8,6 @@ import lombok.Getter;
 public class ResponseReviewModel {
     private String       userId;
     private String       placeId;
+    private String       reviewId;
     private String       errorDtl;
 }

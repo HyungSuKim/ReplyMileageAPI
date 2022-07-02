@@ -5,4 +5,5 @@ import com.triple.replymileageapi.RequestReviewModel;
 public interface UserAcctService {
     UserAcct makeUserAcct(RequestReviewModel model);
     UserAcct updateUserAcct(RequestReviewModel model, Integer mileage);
+    UserAcct getUserAcct(String userId);
 }

@@ -45,4 +45,16 @@ public class UserAcctServiceImpl implements UserAcctService{
 
         return userAcctRepo.findByUserId(model.getUserId()).get(0);
     }
+
+    @Override
+    public UserAcct getUserAcct(String userId) {
+        List<UserAcct> userAcctList = userAcctRepo.findByUserId(userId);
+
+        if(userAcctList.size() == 0)
+            return UserAcct.builder()
+                    .userId(userId)
+                    .mileage(0).build();
+
+        return userAcctList.get(0);
+    }
 }
