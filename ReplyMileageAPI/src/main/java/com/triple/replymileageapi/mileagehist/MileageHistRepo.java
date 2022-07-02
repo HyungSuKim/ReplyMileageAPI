@@ -1,7 +1,5 @@
 package com.triple.replymileageapi.mileagehist;
 
-import com.triple.replymileageapi.place.Place;
-import com.triple.replymileageapi.review.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

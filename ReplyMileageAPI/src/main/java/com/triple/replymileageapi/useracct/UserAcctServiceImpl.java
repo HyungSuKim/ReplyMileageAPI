@@ -5,7 +5,6 @@ import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Log
 @Service
@@ -23,8 +22,6 @@ public class UserAcctServiceImpl implements UserAcctService{
         List<UserAcct> searchResult = userAcctRepo.findByUserId(model.getUserId());
 
         if(!searchResult.isEmpty()) {
-            log.info(searchResult.get(0).toString());
-
             return searchResult.get(0);
         }
 
@@ -34,8 +31,6 @@ public class UserAcctServiceImpl implements UserAcctService{
                 .build();
 
         userAcctRepo.save(userAcct);
-
-        log.info(userAcctRepo.findByUserId(model.getUserId()).get(0).toString());
 
         return userAcctRepo.findByUserId(model.getUserId()).get(0);
     }

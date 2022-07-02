@@ -1,11 +1,8 @@
 package com.triple.replymileageapi.review;
 
 import com.triple.replymileageapi.RequestReviewModel;
-import com.triple.replymileageapi.useracct.UserAcct;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Log
 @Service
@@ -33,11 +30,6 @@ public class ReviewServiceImpl implements ReviewService {
         count = reviewRepo.findAllByPlaceIdAndUseFlag(model.getPlaceId(), "Y").size();
 
         return count;
-    }
-
-    @Override
-    public Review getPreviousReview(RequestReviewModel model) {
-        return reviewRepo.findByReviewIdAndPlaceIdAndUseFlag(model.getReviewId(), model.getPlaceId(), "Y");
     }
 
     @Override
@@ -70,6 +62,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review updateReviewUseFlag(RequestReviewModel model) {
         Review previousReview = reviewRepo.findByReviewIdAndPlaceIdAndUseFlag(model.getReviewId(), model.getPlaceId(), "Y");
+
+        if(previousReview == null) return null;
 
         previousReview.setUseFlag("N");
 

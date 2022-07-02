@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -33,6 +32,10 @@ public class MileageHist {
     private String reviewId;
 
     private Integer mileage;
+
+    private Integer mileageChange;
+
+    private String  action;
 
     @JsonIgnore
     @Setter

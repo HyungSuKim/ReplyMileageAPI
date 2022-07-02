@@ -32,46 +32,34 @@ public class ReviewMileageController {
     }
 
     @PostMapping("/events")
-    public ResponseEntity<ResponseReviewModel> review(@RequestBody RequestReviewModel model){
-        //System.out.println(model.toString());
-        //log.info(model.toString());
-
+    public ResponseEntity<Object> review(@RequestBody RequestReviewModel model){
         switch (model.getAction()) {
             case "ADD" :
-                insert(model);
-                break;
+                return insert(model);
             case "MOD" :
-                update(model);
-                break;
+                return update(model);
             case "DELETE" :
-                delete(model);
-                break;
+                return delete(model);
             default:
-                return new ResponseEntity(HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>(ResponseReviewModel.builder()
+                        .userId(model.getUserId())
+                        .placeId(model.getPlaceId())
+                        .errorDtl("Not Defined Action.").build(),HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @Transactional
-    public ResponseEntity<ResponseReviewModel> insert(RequestReviewModel model) {
-        //Response 다시 고민
+    public ResponseEntity<Object> insert(RequestReviewModel model) {
         //장소 별 리뷰 1개 유효성 검사
         if(!reviewService.isUserUniqueReviewPlace(model)) {
-            log.info("중복");
             return new ResponseEntity<>(ResponseReviewModel.builder()
                     .userId(model.getUserId())
                     .placeId(model.getPlaceId())
                     .errorDtl("Already Review for place").build(), HttpStatus.METHOD_NOT_ALLOWED);
         }
 
-
-        log.info(model.toString());
-
         //사용자 계좌 정보 획득
         UserAcct userAcct = userAcctService.makeUserAcct(model);
-
-        log.info(model.getPlaceId().toString());
 
         //보너스 가능 여부를 확인하기 위한 장소 리뷰 개수 조회
         Integer placeReViewCount = 0;
@@ -79,20 +67,16 @@ public class ReviewMileageController {
 
         //리뷰 등록
         Review result = reviewService.insertReview(model);
-        log.info(result.toString());
 
         //마일리지 계산
         Integer mileage = mileageService.getCalculateMileage(result, placeReViewCount);
 
         //사용자 계좌 마일리지 적용
         userAcct = userAcctService.updateUserAcct(model, mileage);
-        log.info(userAcct.toString());
 
         //마일리지 적용 기록
         MileageHist mileageHist = mileageHistService.insertMileageHist(result, mileage, placeReViewCount);
-        log.info(mileageHist.toString());
 
-        //return new ResponseEntity(HttpStatus.CREATED);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ResponseReviewModel.builder()
                         .userId(model.getUserId())
@@ -101,51 +85,62 @@ public class ReviewMileageController {
     }
 
     public ResponseEntity update(RequestReviewModel model) {
-
         //이전 리뷰 획득 및 비 활성화
         Review previousReview = reviewService.updateReviewUseFlag(model);
-        log.info("UPDATE : " + previousReview.toString());
 
-        log.info("before call calmile : " + previousReview.toString());
+        if(previousReview == null) {
+            return new ResponseEntity<>(ResponseReviewModel.builder()
+                    .userId(model.getUserId())
+                    .placeId(model.getPlaceId())
+                    .errorDtl("There are no review to update").build(), HttpStatus.NOT_FOUND);
+        }
+
         //수정 된 마일리지 계산
         Integer mileage = mileageService.getCalculateMileage(previousReview, model);
         //-1
         //리뷰 등록
         Review result = reviewService.insertReview(model);
-        log.info("UPDATE : " + result.toString());
-
-
 
         //이전 마일리지 획득 비 활성화 및 획득
         MileageHist preMileageHist = mileageHistService.updateMileageHist(previousReview);
-        log.info("prehist" + preMileageHist.toString());
 
         //마일리지 적용 기록 및 차 획득
         Integer mileageDiff = mileageHistService.insertMileageHist(preMileageHist, result, mileage);
 
         //사용자 계좌 마일리지 적용
         UserAcct userAcct = userAcctService.updateUserAcct(model, mileageDiff);
-        log.info("UPDATE : " + userAcct.toString());
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ResponseReviewModel.builder()
+                        .userId(model.getUserId())
+                        .placeId(model.getPlaceId())
+                        .errorDtl("Success").build());
     }
 
     public ResponseEntity delete(RequestReviewModel model) {
         //이전 리뷰 획득 및 비 활성화
         Review previousReview = reviewService.updateReviewUseFlag(model);
-        log.info("UPDATE : " + previousReview.toString());
+
+        if(previousReview == null) {
+            return new ResponseEntity<>(ResponseReviewModel.builder()
+                    .userId(model.getUserId())
+                    .placeId(model.getPlaceId())
+                    .errorDtl("There are no review to delete").build(), HttpStatus.NOT_FOUND);
+        }
 
         //이전 마일리지 획득 비 활성화 및 획득
         MileageHist preMileageHist = mileageHistService.updateMileageHist(previousReview);
-        log.info("prehist" + preMileageHist.toString());
 
         Integer mileage = 0;
         mileage = mileage - preMileageHist.getMileage();
 
         //사용자 계좌 마일리지 적용
         UserAcct userAcct = userAcctService.updateUserAcct(model, mileage);
-        log.info("UPDATE : " + userAcct.toString());
 
-        return new ResponseEntity(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ResponseReviewModel.builder()
+                        .userId(model.getUserId())
+                        .placeId(model.getPlaceId())
+                        .errorDtl("Success").build());
     }
 }

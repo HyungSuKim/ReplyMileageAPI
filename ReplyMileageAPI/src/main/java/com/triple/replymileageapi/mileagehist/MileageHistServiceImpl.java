@@ -35,8 +35,6 @@ public class MileageHistServiceImpl implements MileageHistService{
     public Integer insertMileageHist(MileageHist preMileageHist, Review review, Integer mileage) {
         Integer claculatedMileage = preMileageHist.getMileage() + mileage;
 
-        log.info("UPDATE : " + claculatedMileage);
-
                 MileageHist mileageHist = MileageHist.builder()
                 .userId(review.getUserId())
                 .placeId(review.getPlaceId())
@@ -47,7 +45,6 @@ public class MileageHistServiceImpl implements MileageHistService{
                 .build();
 
         mileageHistRepo.save(mileageHist);
-        log.info("UPDATE : " + mileageHistRepo.findByReviewIdAndPlaceIdAndUseFlag(review.getReviewId(), review.getPlaceId(), "Y").toString());
 
         return claculatedMileage - preMileageHist.getMileage();
     }
@@ -57,7 +54,6 @@ public class MileageHistServiceImpl implements MileageHistService{
         MileageHist previousHist = mileageHistRepo.findByReviewIdAndPlaceIdAndUseFlag(review.getReviewId(), review.getPlaceId(), "Y");
 
         previousHist.setUseFlag("N");
-        log.info("updateMileageHist" + previousHist.toString());
 
         mileageHistRepo.save(previousHist);
 
