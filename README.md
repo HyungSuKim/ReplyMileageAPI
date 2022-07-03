@@ -225,10 +225,10 @@ POST /events
 ```
 201 Created
 {
-    "userId": String,
-    "placeId": String,
-    "reviewId": String,
-    "errorDtl": "Success"
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "Success"
 }
 ```
 
@@ -236,10 +236,10 @@ POST /events
 ```
 404 Not Found
 {
-    "userId": String,
-    "placeId": String,
-    "reviewId": String,
-    "errorDtl": "There are no review to delete"
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "There are no review to delete"
 }
 ```
   
@@ -313,7 +313,27 @@ POST /events
 ## 사용자 계좌 & History 조회  
   
 ### &#128073; Request URL  
-GET /useracct?userId=
+GET /useracct?userId=  
+
+### &#128073; Response Success
+```
+200 Ok
+{
+	"userId": String,
+	"mileage": Integer,
+	"history": [
+		{
+			"id":Integer,
+			"userId":String,
+			"placeId":String,
+			"reviewId":String,
+			"mileage":Integer,
+			"mileageChange"Integer,
+			"action":String
+		}
+	]
+}
+```
 
   <details>
     <summary>요청 자세히 보기</summary>
