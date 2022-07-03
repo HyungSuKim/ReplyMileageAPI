@@ -75,6 +75,11 @@ public class ReviewServiceImpl implements ReviewService {
 
         if(previousReview == null) return null;
 
+        // 기존 리뷰 정보와 입력 받은 값이 달라도 유효하지 않으므로 null return
+        if(!previousReview.getUserId().equals(model.getUserId())
+                || !previousReview.getPlaceId().equals(model.getPlaceId()))
+            return null;
+
         previousReview.setUseFlag("N");
 
         reviewRepo.save(previousReview);
