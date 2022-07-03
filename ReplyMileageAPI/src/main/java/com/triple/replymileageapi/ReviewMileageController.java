@@ -86,7 +86,7 @@ public class ReviewMileageController {
         userAcct = userAcctService.updateUserAcct(model, mileage);
 
         //마일리지 적용 기록
-        MileageHist mileageHist = mileageHistService.insertMileageHist(result, mileage, placeReViewCount);
+        MileageHist mileageHist = mileageHistService.insertMileageHist(result, mileage, placeReViewCount, userAcct);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ResponseReviewModel.builder()
@@ -97,6 +97,7 @@ public class ReviewMileageController {
     }
 
     public ResponseEntity update(RequestReviewModel model) {
+
         //이전 리뷰 획득 및 비 활성화
         Review previousReview = reviewService.updateReviewUseFlag(model);
 

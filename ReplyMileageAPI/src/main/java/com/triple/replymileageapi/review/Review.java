@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(indexes = {
-        @Index(name="i_reviewuserid", columnList = "reviewId,userId")
+        @Index(name="i_userid", columnList = "userId")
         ,@Index(name="i_placeid", columnList = "placeId")
 })
 @Getter

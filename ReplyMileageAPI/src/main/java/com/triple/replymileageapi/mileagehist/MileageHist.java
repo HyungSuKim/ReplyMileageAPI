@@ -1,6 +1,8 @@
 package com.triple.replymileageapi.mileagehist;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.triple.replymileageapi.review.Review;
+import com.triple.replymileageapi.useracct.UserAcct;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,11 +12,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(indexes = {
-        @Index(name="i_userplacereview", columnList = "userId,placeId,reviewId"),
-        @Index(name="i_placereview", columnList = "placeId,reviewId"),
-        @Index(name="i_userplace", columnList = "userId,placeId")
-})
 @Getter
 @Builder
 @DynamicInsert
@@ -27,11 +24,15 @@ public class MileageHist {
     @GeneratedValue
     private Long   id;
 
-    private String userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", nullable = false, updatable = false)
+    private UserAcct userAcct;
 
     private String placeId;
 
-    private String reviewId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="review_id", nullable = false, updatable = false)
+    private Review review;
 
     private Integer mileage;
 

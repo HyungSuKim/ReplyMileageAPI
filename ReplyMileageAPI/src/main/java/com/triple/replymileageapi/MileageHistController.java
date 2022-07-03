@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Log
@@ -23,32 +24,72 @@ public class MileageHistController {
     }
 
     @GetMapping("/user")
-    public ResponseEntity<List<MileageHist>> getUserMileageHist(@RequestParam String userId) {
+    public ResponseEntity<List<ResponseHistModel>> getUserMileageHist(@RequestParam String userId) {
         List<MileageHist> mileageHistList = mileageHistService.getMileageHist(userId);
+        List<ResponseHistModel> responseHistModelList = new ArrayList<>();
 
         if(mileageHistList.size() == 0)
-            return new ResponseEntity<>(mileageHistList, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(responseHistModelList, HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(mileageHistList, HttpStatus.OK);
+        for (MileageHist mileageHist : mileageHistList) {
+            responseHistModelList.add(ResponseHistModel.builder()
+                            .id(mileageHist.getId())
+                            .userId(mileageHist.getUserAcct().getUserId())
+                            .placeId(mileageHist.getPlaceId())
+                            .reviewId(mileageHist.getReview().getReviewId())
+                            .mileage(mileageHist.getMileage())
+                            .mileageChange(mileageHist.getMileageChange())
+                            .action(mileageHist.getAction())
+                    .build());
+        }
+
+        return new ResponseEntity<>(responseHistModelList, HttpStatus.OK);
     }
 
     @GetMapping("/user/place")
-    public ResponseEntity<List<MileageHist>> getUserMileageHist(@RequestParam String userId, @RequestParam String placeId) {
+    public ResponseEntity<List<ResponseHistModel>> getUserMileageHist(@RequestParam String userId, @RequestParam String placeId) {
         List<MileageHist> mileageHistList = mileageHistService.getMileageHist(userId, placeId);
 
-        if(mileageHistList.size() == 0)
-            return new ResponseEntity<>(mileageHistList, HttpStatus.NOT_FOUND);
+        List<ResponseHistModel> responseHistModelList = new ArrayList<>();
 
-        return new ResponseEntity<>(mileageHistList, HttpStatus.OK);
+        if(mileageHistList.size() == 0)
+            return new ResponseEntity<>(responseHistModelList, HttpStatus.NOT_FOUND);
+
+        for (MileageHist mileageHist : mileageHistList) {
+            responseHistModelList.add(ResponseHistModel.builder()
+                    .id(mileageHist.getId())
+                    .userId(mileageHist.getUserAcct().getUserId())
+                    .placeId(mileageHist.getPlaceId())
+                    .reviewId(mileageHist.getReview().getReviewId())
+                    .mileage(mileageHist.getMileage())
+                    .mileageChange(mileageHist.getMileageChange())
+                    .action(mileageHist.getAction())
+                    .build());
+        }
+
+        return new ResponseEntity<>(responseHistModelList, HttpStatus.OK);
     }
 
     @GetMapping("/user/place/review")
-    public ResponseEntity<List<MileageHist>> getUserMileageHist(@RequestParam String userId, @RequestParam String placeId, @RequestParam String reviewId) {
+    public ResponseEntity<List<ResponseHistModel>> getUserMileageHist(@RequestParam String userId, @RequestParam String placeId, @RequestParam String reviewId) {
         List<MileageHist> mileageHistList = mileageHistService.getMileageHist(userId, placeId, reviewId);
+        List<ResponseHistModel> responseHistModelList = new ArrayList<>();
 
         if(mileageHistList.size() == 0)
-            return new ResponseEntity<>(mileageHistList, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(responseHistModelList, HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(mileageHistList, HttpStatus.OK);
+        for (MileageHist mileageHist : mileageHistList) {
+            responseHistModelList.add(ResponseHistModel.builder()
+                    .id(mileageHist.getId())
+                    .userId(mileageHist.getUserAcct().getUserId())
+                    .placeId(mileageHist.getPlaceId())
+                    .reviewId(mileageHist.getReview().getReviewId())
+                    .mileage(mileageHist.getMileage())
+                    .mileageChange(mileageHist.getMileageChange())
+                    .action(mileageHist.getAction())
+                    .build());
+        }
+
+        return new ResponseEntity<>(responseHistModelList, HttpStatus.OK);
     }
 }
