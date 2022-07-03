@@ -91,13 +91,13 @@ POST /events
 ### &#128073; Request Body
 ```
 {
-    "type":"REVIEW",
-    "action":"ADD",
-    "reviewId":String,
-    "content":String,
-    "attachedPhotoIds":List<String>,
-    "userId":String,
-    "placeId":String
+	"type":"REVIEW",
+	"action":"ADD",
+	"reviewId":String,
+	"content":String,
+	"attachedPhotoIds":List<String>,
+	"userId":String,
+	"placeId":String
 }
 ```
 
@@ -158,13 +158,13 @@ POST /events
 ### &#128073; Request Body
 ```
 {
-    "type":"REVIEW",
-    "action":"MOD",
-    "reviewId":String,
-    "content":String,
-    "attachedPhotoIds":List<String>,
-    "userId":String,
-    "placeId":String
+	"type":"REVIEW",
+	"action":"MOD",
+	"reviewId":String,
+	"content":String,
+	"attachedPhotoIds":List<String>,
+	"userId":String,
+	"placeId":String
 }
 ```
 
@@ -211,13 +211,13 @@ POST /events
 ### &#128073; Request Body
 ```
 {
-    "type":"REVIEW",
-    "action":"DELETE",
-    "reviewId":String,
-    "content":String,
-    "attachedPhotoIds":List<String>,
-    "userId":String,
-    "placeId":String
+	"type":"REVIEW",
+	"action":"DELETE",
+	"reviewId":String,
+	"content":String,
+	"attachedPhotoIds":List<String>,
+	"userId":String,
+	"placeId":String
 }
 ```
 
@@ -225,10 +225,10 @@ POST /events
 ```
 201 Created
 {
-	"userId": String,
-	"placeId": String,
-	"reviewId": String,
-	"errorDtl": "Success"
+    "userId": String,
+    "placeId": String,
+    "reviewId": String,
+    "errorDtl": "Success"
 }
 ```
 
@@ -236,10 +236,10 @@ POST /events
 ```
 404 Not Found
 {
-	"userId": String,
-	"placeId": String,
-	"reviewId": String,
-	"errorDtl": "There are no review to delete"
+    "userId": String,
+    "placeId": String,
+    "reviewId": String,
+    "errorDtl": "There are no review to delete"
 }
 ```
   
