@@ -1,6 +1,6 @@
 package com.triple.replymileageapi.mileage;
 
-import com.triple.replymileageapi.RequestReviewModel;
+import com.triple.replymileageapi.controller.model.RequestReviewModel;
 import com.triple.replymileageapi.review.Review;
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;

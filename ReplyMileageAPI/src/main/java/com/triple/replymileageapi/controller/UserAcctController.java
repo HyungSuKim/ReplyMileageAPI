@@ -1,4 +1,4 @@
-package com.triple.replymileageapi;
+package com.triple.replymileageapi.controller;
 
 import com.triple.replymileageapi.useracct.UserAcct;
 import com.triple.replymileageapi.useracct.UserAcctService;

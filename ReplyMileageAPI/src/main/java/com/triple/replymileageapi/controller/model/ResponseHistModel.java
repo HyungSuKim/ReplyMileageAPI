@@ -1,4 +1,4 @@
-package com.triple.replymileageapi;
+package com.triple.replymileageapi.controller.model;
 
 import com.triple.replymileageapi.useracct.UserAcct;
 import lombok.Builder;

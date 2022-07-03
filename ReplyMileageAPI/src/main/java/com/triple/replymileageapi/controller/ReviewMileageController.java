@@ -1,5 +1,7 @@
-package com.triple.replymileageapi;
+package com.triple.replymileageapi.controller;
 
+import com.triple.replymileageapi.controller.model.RequestReviewModel;
+import com.triple.replymileageapi.controller.model.ResponseReviewModel;
 import com.triple.replymileageapi.mileage.MileageService;
 import com.triple.replymileageapi.mileagehist.MileageHist;
 import com.triple.replymileageapi.mileagehist.MileageHistService;

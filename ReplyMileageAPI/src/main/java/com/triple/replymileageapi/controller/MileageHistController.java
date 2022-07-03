@@ -1,5 +1,6 @@
-package com.triple.replymileageapi;
+package com.triple.replymileageapi.controller;
 
+import com.triple.replymileageapi.controller.model.ResponseHistModel;
 import com.triple.replymileageapi.mileagehist.MileageHist;
 import com.triple.replymileageapi.mileagehist.MileageHistService;
 import lombok.extern.java.Log;
