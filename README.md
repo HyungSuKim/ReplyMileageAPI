@@ -82,10 +82,61 @@ alter table mileage_hist
   ---
 
 # **API 사용 예시(POST)**  
+
+### &#128073; Request URL  
+POST /events
+
 ## ADD  
+  
+### &#128073; Request Body
+```
+{
+    "type":"REVIEW",
+    "action":"ADD",
+    "reviewId":String,
+    "content":String,
+    "attachedPhotoIds":List<String>,
+    "userId":String,
+    "placeId":String
+}
+```
+
+### &#128073; Response Success
+```
+201 Created
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "Success"
+}
+```
+
+### &#128073; Response Fail 1
+```
+500 Internal Server Error
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "Duplicate reviewId"
+}
+```
+
+### &#128073; Response Fail 2
+```
+405 Method Not Allowed
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "Already Review for place"
+}
+```
   
   <details>
     <summary>요청 자세히 보기</summary>
+
 
 ### ㅇ 요청 성공  
 <img width="718" alt="ADD_Success" src="https://user-images.githubusercontent.com/32235824/177031667-422cfc2a-6822-41ae-a9d7-21148f7b8e44.PNG">  
@@ -104,6 +155,41 @@ alter table mileage_hist
   ---
 ## MOD  
   
+### &#128073; Request Body
+```
+{
+    "type":"REVIEW",
+    "action":"MOD",
+    "reviewId":String,
+    "content":String,
+    "attachedPhotoIds":List<String>,
+    "userId":String,
+    "placeId":String
+}
+```
+
+### &#128073; Response Success
+```
+201 Created
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "Success"
+}
+```
+
+### &#128073; Response Fail
+```
+404 Not Found
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "There are no review to update"
+}
+```
+  
   <details>
     <summary>요청 자세히 보기</summary>
 
@@ -121,6 +207,41 @@ alter table mileage_hist
 
   ---
 ## DELETE
+  
+### &#128073; Request Body
+```
+{
+    "type":"REVIEW",
+    "action":"DELETE",
+    "reviewId":String,
+    "content":String,
+    "attachedPhotoIds":List<String>,
+    "userId":String,
+    "placeId":String
+}
+```
+
+### &#128073; Response Success
+```
+201 Created
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "Success"
+}
+```
+
+### &#128073; Response Fail
+```
+404 Not Found
+{
+	"userId": String,
+	"placeId": String,
+	"reviewId": String,
+	"errorDtl": "There are no review to delete"
+}
+```
   
   <details>
     <summary>요청 자세히 보기</summary>
@@ -189,12 +310,14 @@ alter table mileage_hist
 
   ---
 # **API 사용 예시(GET)**  
-## 사용자 계좌 & History 조회
+## 사용자 계좌 & History 조회  
+  
+### &#128073; Request URL  
+GET /useracct?userId=
 
   <details>
     <summary>요청 자세히 보기</summary>
 
-### 요청 (http://localhost:8080/useracct?userId=)
 <img width="753" alt="get" src="https://user-images.githubusercontent.com/32235824/177033871-0be2d3a2-d9ff-4915-83bd-9d945579b46f.PNG">
 
   </details>
