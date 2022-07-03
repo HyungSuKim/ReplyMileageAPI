@@ -80,7 +80,7 @@ alter table mileage_hist
   </details>
   
   ---
-  
+
 # **API 사용 예시(POST)**  
 ## ADD  
   
@@ -132,7 +132,7 @@ alter table mileage_hist
 <img width="713" alt="DEL_존재하지 않는 리뷰" src="https://user-images.githubusercontent.com/32235824/177032885-8fa93f11-9060-416d-bcc5-dc89439abdff.PNG">
   
 ### ㅇ 요청 이후 계좌 정보
-<img width="737" alt="DEL_삭제 이후 계좌" src="https://user-images.githubusercontent.com/32235824/177032884-420b4097-516a-4d45-9377-08991725cbc0.PNG">
+<img width="746" alt="DEL_삭제 이후 계좌" src="https://user-images.githubusercontent.com/32235824/177034500-1f09eb2d-54ec-41c7-a480-24bf193c5cf5.PNG">
   
   </details>
 

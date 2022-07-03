@@ -60,7 +60,7 @@ public class MileageHistServiceImpl implements MileageHistService{
                 .userAcct(preMileageHist.getUserAcct())
                 .placeId(preMileageHist.getPlaceId())
                 .review(preMileageHist.getReview())
-                .mileage(preMileageHist.getMileage())
+                .mileage(preMileageHist.getMileage() + mileage)
                 .mileageChange(mileage)
                 .action("DELETE")
                 .useFlag("N")
