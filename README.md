@@ -358,7 +358,7 @@ GET /useracct?userId=
   프로젝트 파일을 열어 실행.  
   ### @ Windows
   명령 프롬프트(CMD)에서 아래의 명령어를 순차적으로 실행.  
-  gradlew build 에러 시 build.gradle 파일의 sourceCompatibility 값을 변경 (JAVA 8 = 1.8)  
+  gradlew build 에러 시 build.gradle 파일의 sourceCompatibility 값을 설치 되어있는 JAVA 버전에 맞게 변경 (ex. JAVA 8 = 1.8)  
   > \triple_works\ReplyMileageAPI>gradlew.bat  
     \triple_works\ReplyMileageAPI>gradlew build  
     \triple_works\ReplyMileageAPI>cd build  
