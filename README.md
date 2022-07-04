@@ -365,3 +365,7 @@ GET /useracct?userId=
     \triple_works\ReplyMileageAPI\build>cd libs  
     \triple_works\ReplyMileageAPI\build\libs>java -jar ReplyMileageAPI-0.0.1-SNAPSHOT.jar  
   (종료 Ctrl + C)
+  ### @ Linux
+  >상기 방식 혹은 IDE의 Gradle > Tasks > build > bootJar로 jar 파일 생성  
+  리눅스 환경에 JDK 설치 및 'nohup java ReplyMileageAPI-0.0.1-SNAPSHOT.jar &' 명령어로 jar 파일 실행  
+  (종료 kill -15(안될 시 -9) [pid], pid = ps -ef | grep java)  
