@@ -83,7 +83,6 @@ public class MileageHistServiceImpl implements MileageHistService{
 
     @Override
     public List<MileageHist> getMileageHist(String userId) {
-        log.info("get 호출");
         return mileageHistRepo.findByUserAcctOrderByCreatedDesc(UserAcct.builder().userId(userId).build());
     }
 
