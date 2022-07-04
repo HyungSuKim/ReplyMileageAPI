@@ -23,7 +23,7 @@ public class UserAcctTest {
         assertThat(userAcctRepo).isNotNull();
     }
 
-    @Test
+    /*@Test
     public void 전달받은UUID로사용자계좌조회() {
         //given
         final UserAcct userAcct = new UserAcct.UserAcctBuilder().userId(UUID.randomUUID()).build();
@@ -50,5 +50,5 @@ public class UserAcctTest {
         System.out.println(userAcctRepo.findByUserId(saveResult.getUserId()).get(0));
         //then
         assertThat(saveResult.getUserId()).isEqualTo(input);
-    }
+    }*/
 }

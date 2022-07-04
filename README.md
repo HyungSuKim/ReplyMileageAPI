@@ -342,4 +342,13 @@ GET /useracct?userId=
 
   </details>
 
+  --- 
+
+  # **개발 환경 및 실행 방법**
+  ## 개발 환경
+  JAVA 18  
+  Spring Boot  
+  Lombok  
+  Spring Boot JPA  
+  MySQL 8.0.29  
   ---
